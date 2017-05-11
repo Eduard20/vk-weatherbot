@@ -10,6 +10,6 @@
   "author": "Eduard Simonyan",
   "license": "ISC",
   "dependencies": {
-    "vk-io": "^3.1.5"
+    "vk-io": "3.1.5"
   }
 }

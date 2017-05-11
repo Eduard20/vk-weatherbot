@@ -20,8 +20,9 @@ vk.longpoll.on("message", (msg) => {
     if (msg.flags.indexOf('outbox') !== -1) {
         return;
     }
-    request(`http://api.openweathermap.org/data/2.5/weather?q=${msg.text}&APPID=${config.key}&units=metric`, (err, res, body) => {
+    request(`http://api.openweathermap.org/data/2.5/weather?q=${msg.text}&APPID=${config.weatherKey}&units=metric`, (err, res, body) => {
         if (err) return console.error(err);
+        console.log(body);
         let json = JSON.parse(body);
         let result;
         if (json.cod != 200) {
