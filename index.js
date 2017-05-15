@@ -5,7 +5,7 @@
 
 const {vk} = require("./vkConnector");
 const config = require("./config");
-const request = require("request");
+const request = require("request-promise");
 
 vk.longpoll.on("message", msg => {
     if (msg.flags.indexOf('outbox') !== -1) {
@@ -28,9 +28,12 @@ vk.longpoll.on("message", msg => {
 
 const makeReuqest = msg => {
     return new Promise((resolve, reject) => {
-        request(`http://api.openweathermap.org/data/2.5/weather?q=${msg.text}&APPID=${config.weatherKey}&units=metric`, (err, res, body) => {
-            if (err) return reject(err);
-            return resolve(body);
-        });
+        request(`http://api.openweathermap.org/data/2.5/weather?q=${msg.text}&APPID=${config.weatherKey}&units=metric`)
+            .then((doc) => {
+                return resolve(doc);
+            })
+            .catch((err) => {
+                return reject(err);
+            });
     });
 };
